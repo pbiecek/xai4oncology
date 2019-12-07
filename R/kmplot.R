@@ -1,15 +1,12 @@
-kmplot <- function(time, status, group, title = "OS", xlab = "", break.x.by = 1) {
+kmplot <- function(time, status, group,  ...) {
   df <- data.frame(time, status, group)
   sfit <- survfit(Surv(time, status)~group, data = df)
 
-  legend.labs = paste0("value=", levels(factor(group)))
+  legend.labs = levels(factor(group)) # paste0("value=", levels(factor(group)))
 
   tmpplot <- survminer::ggsurvplot(sfit,
                                    pval = TRUE, risk.table = TRUE, data = df,
-                                   title = zmToPlot,
-                                   xlab = xlab, break.x.by = break.x.by,
-                                   legend.title = title,
-                                   legend.labs = legend.labs
+                                   ...
   )
 
   tmpplot[[1]] <- tmpplot[[1]] +
